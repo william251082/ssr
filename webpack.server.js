@@ -1,4 +1,6 @@
-modules.exports = {
+const path = require('path');
+
+module.exports = {
     // Inform webpack that we're building a bundle for nodejs, rather than for the browser
     target: 'node',
 
@@ -7,7 +9,7 @@ modules.exports = {
 
     // Tell webpack where to put the out file that is generated
     output: {
-        fielname: 'bundle.js',
+        filename: 'bundle.js',
         path: path.resolve(__dirname, 'build')
     },
 

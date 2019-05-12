@@ -4,10 +4,18 @@ import React           from 'react';
 import renderer        from './helpers/renderer';
 import createStore     from './helpers/createStore';
 import Routes          from './client/Routes'
-import { matchRoutes } from "react-router-config";
+import { matchRoutes } from 'react-router-config';
+import proxy           from './helpers/createStore';
 
 const app = express();
 
+app.use('/api', proxy('http://react-ssr-api.herokuapp.com', {
+    // second option for proxy config
+    proxyReqOptDecorator(opts) {
+        opts.header['x-forwarded-host'] = 'localhost:3000';
+        return opts;
+    }
+}));
 app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore();

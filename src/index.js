@@ -12,18 +12,14 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore();
 
-    console.log('matchRoutes', matchRoutes(Routes, req.path));
-    // matchRoutes [
-    //          {
-    //            route: { loadData: [Function: loadData],
-    //            path: '/users',
-    //            component: [Function]
-    //          }, match: { path: '/users', url: '/users', isExact: true, params: {} }}
-    //          ]
-
-    matchRoutes(Routes, req.path).map(({route}) => {
-        return route.loadData ? route.loadData() : null;
+    // What are we doing in the loadData?
+    const promises = matchRoutes(Routes, req.path).map(({route}) => {
+        // Call loadData function, passing in the redux store
+        return route.loadData ? route.loadData(store) : null;
     });
+
+    // Wait for this promise to resolve
+    console.log('promises', promises);
 
     res.send(renderer(req, store));
 });

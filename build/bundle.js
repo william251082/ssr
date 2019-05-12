@@ -182,20 +182,16 @@ app.use(_express2.default.static('public'));
 app.get('*', function (req, res) {
     var store = (0, _createStore2.default)();
 
-    console.log('matchRoutes', (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path));
-    // matchRoutes [
-    //          {
-    //            route: { loadData: [Function: loadData],
-    //            path: '/users',
-    //            component: [Function]
-    //          }, match: { path: '/users', url: '/users', isExact: true, params: {} }}
-    //          ]
-
-    (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
+    // What are we doing in the loadData?
+    var promises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
         var route = _ref.route;
 
-        return route.loadData ? route.loadData() : null;
+        // Call loadData function, passing in the redux store
+        return route.loadData ? route.loadData(store) : null;
     });
+
+    // Wait for this promise to resolve
+    console.log('promises', promises);
 
     res.send((0, _renderer2.default)(req, store));
 });
@@ -420,8 +416,9 @@ function mapStateToProps(state) {
     return { users: state.users };
 }
 
-function loadData() {
-    console.log('I\'m trying to load data');
+function loadData(store) {
+    // manually dispatch action creator
+    return store.dispatch((0, _actions.fetchUsers)());
 }
 
 exports.loadData = loadData;

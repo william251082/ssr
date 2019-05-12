@@ -37132,8 +37132,9 @@ function mapStateToProps(state) {
     return { users: state.users };
 }
 
-function loadData() {
-    console.log('I\'m trying to load data');
+function loadData(store) {
+    // manually dispatch action creator
+    return store.dispatch((0, _actions.fetchUsers)());
 }
 
 exports.loadData = loadData;

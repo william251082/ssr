@@ -18,10 +18,9 @@ app.get('*', (req, res) => {
         return route.loadData ? route.loadData(store) : null;
     });
 
-    // Wait for this promise to resolve
-    console.log('promises', promises);
-
-    res.send(renderer(req, store));
+    Promise.all(promises).then(() => {
+        res.send(renderer(req, store));
+    });
 });
 
 app.listen(3000, () => {

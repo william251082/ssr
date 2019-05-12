@@ -190,10 +190,9 @@ app.get('*', function (req, res) {
         return route.loadData ? route.loadData(store) : null;
     });
 
-    // Wait for this promise to resolve
-    console.log('promises', promises);
-
-    res.send((0, _renderer2.default)(req, store));
+    Promise.all(promises).then(function () {
+        res.send((0, _renderer2.default)(req, store));
+    });
 });
 
 app.listen(3000, function () {
@@ -399,7 +398,16 @@ var UsersList = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                'List of Users:',
+                'List of Users: ',
+                _react2.default.createElement('br', null),
+                '- Fetched this data on the serverside ',
+                _react2.default.createElement('br', null),
+                '- Putting that data into redux store ',
+                _react2.default.createElement('br', null),
+                '- Rendering the result ',
+                _react2.default.createElement('br', null),
+                '- Sending it back to the user ',
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'ul',
                     null,

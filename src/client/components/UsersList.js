@@ -16,7 +16,11 @@ class UsersList extends Component {
     render() {
         return (
             <div>
-                List of Users:
+                List of Users: <br/>
+                - Fetched this data on the serverside <br/>
+                - Putting that data into redux store <br/>
+                - Rendering the result <br/>
+                - Sending it back to the user <br/>
                 <ul>{ this.renderUsers() }</ul>
             </div>
         );

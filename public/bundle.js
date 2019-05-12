@@ -37115,7 +37115,16 @@ var UsersList = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                'List of Users:',
+                'List of Users: ',
+                _react2.default.createElement('br', null),
+                '- Fetched this data on the serverside ',
+                _react2.default.createElement('br', null),
+                '- Putting that data into redux store ',
+                _react2.default.createElement('br', null),
+                '- Rendering the result ',
+                _react2.default.createElement('br', null),
+                '- Sending it back to the user ',
+                _react2.default.createElement('br', null),
                 _react2.default.createElement(
                     'ul',
                     null,

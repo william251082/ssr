@@ -16,11 +16,7 @@ class UsersList extends Component {
     render() {
         return (
             <div>
-                List of Users: <br/>
-                - Fetched this data on the serverside <br/>
-                - Putting that data into redux store <br/>
-                - Rendering the result <br/>
-                - Sending it back to the user <br/>
+                List of Users:
                 <ul>{ this.renderUsers() }</ul>
             </div>
         );
@@ -33,6 +29,7 @@ function mapStateToProps(state) {
 
 function loadData(store) {
     // manually dispatch action creator
+    // Reason: we want to use redux before rendering
     return store.dispatch(fetchUsers());
 }
 

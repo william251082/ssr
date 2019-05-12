@@ -19,6 +19,7 @@ app.get('*', (req, res) => {
     });
 
     Promise.all(promises).then(() => {
+        // the store here is now full of data
         res.send(renderer(req, store));
     });
 });

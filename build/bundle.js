@@ -191,6 +191,7 @@ app.get('*', function (req, res) {
     });
 
     Promise.all(promises).then(function () {
+        // the store here is now full of data
         res.send((0, _renderer2.default)(req, store));
     });
 });
@@ -398,16 +399,7 @@ var UsersList = function (_Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                'List of Users: ',
-                _react2.default.createElement('br', null),
-                '- Fetched this data on the serverside ',
-                _react2.default.createElement('br', null),
-                '- Putting that data into redux store ',
-                _react2.default.createElement('br', null),
-                '- Rendering the result ',
-                _react2.default.createElement('br', null),
-                '- Sending it back to the user ',
-                _react2.default.createElement('br', null),
+                'List of Users:',
                 _react2.default.createElement(
                     'ul',
                     null,
@@ -426,6 +418,7 @@ function mapStateToProps(state) {
 
 function loadData(store) {
     // manually dispatch action creator
+    // Reason: we want to use redux before rendering
     return store.dispatch((0, _actions.fetchUsers)());
 }
 

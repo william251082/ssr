@@ -167,6 +167,12 @@ var _createStore = __webpack_require__(14);
 
 var _createStore2 = _interopRequireDefault(_createStore);
 
+var _Routes = __webpack_require__(10);
+
+var _Routes2 = _interopRequireDefault(_Routes);
+
+var _reactRouterConfig = __webpack_require__(18);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // execute this module to define async/await syntax
@@ -176,7 +182,7 @@ app.use(_express2.default.static('public'));
 app.get('*', function (req, res) {
     var store = (0, _createStore2.default)();
 
-    // Some logic to initialize and load data into the store
+    console.log((0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path));
 
     res.send((0, _renderer2.default)(req, store));
 });

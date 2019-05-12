@@ -1,3 +1,4 @@
+import 'babel-polyfill'; // execute this module to define async/await syntax
 import express      from 'express';
 import React        from 'react';
 import renderer     from './helpers/renderer';

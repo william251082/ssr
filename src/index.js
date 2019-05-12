@@ -12,7 +12,18 @@ app.use(express.static('public'));
 app.get('*', (req, res) => {
     const store = createStore();
 
-    console.log(matchRoutes(Routes, req.path));
+    console.log('matchRoutes', matchRoutes(Routes, req.path));
+    // matchRoutes [
+    //          {
+    //            route: { loadData: [Function: loadData],
+    //            path: '/users',
+    //            component: [Function]
+    //          }, match: { path: '/users', url: '/users', isExact: true, params: {} }}
+    //          ]
+
+    matchRoutes(Routes, req.path).map(({route}) => {
+        return route.loadData ? route.loadData() : null;
+    });
 
     res.send(renderer(req, store));
 });

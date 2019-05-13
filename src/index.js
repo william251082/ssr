@@ -9,6 +9,7 @@ import proxy           from 'express-http-proxy';
 
 const app = express();
 
+// authenticate through this proxy
 app.use('/api', proxy('http://react-ssr-api.herokuapp.com', {
     // second option for proxy config
     proxyReqOptDecorator(opts) {

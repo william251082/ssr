@@ -247,9 +247,10 @@ var _expressHttpProxy2 = _interopRequireDefault(_expressHttpProxy);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var app = (0, _express2.default)(); // execute this module to define async/await syntax
+var app = (0, _express2.default)();
 
-
+// authenticate through this proxy
+// execute this module to define async/await syntax
 app.use('/api', (0, _expressHttpProxy2.default)('http://react-ssr-api.herokuapp.com', {
     // second option for proxy config
     proxyReqOptDecorator: function proxyReqOptDecorator(opts) {
@@ -659,9 +660,14 @@ var _react2 = _interopRequireDefault(_react);
 
 var _reactRouterDom = __webpack_require__(11);
 
+var _reactRedux = __webpack_require__(2);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-exports.default = function () {
+var Header = function Header(_ref) {
+    var auth = _ref.auth;
+
+    console.log('auth status', auth);
     return _react2.default.createElement(
         'div',
         null,
@@ -672,6 +678,14 @@ exports.default = function () {
         )
     );
 };
+
+function mapStateToProps(_ref2) {
+    var auth = _ref2.auth;
+
+    return { auth: auth };
+}
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps)(Header);
 
 /***/ }),
 /* 23 */

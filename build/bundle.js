@@ -320,6 +320,12 @@ app.get('*', function (req, res) {
 
         // Call loadData function, passing in the redux store
         return route.loadData ? route.loadData(store) : null;
+    }).map(function (promise) {
+        if (promise) {
+            return new Promise(function (resolve, reject) {
+                promise.then(resolve).catch(resolve);
+            });
+        }
     });
 
     var render = function render() {

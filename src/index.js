@@ -26,6 +26,12 @@ app.get('*', (req, res) => {
     const promises = matchRoutes(Routes, req.path).map(({route}) => {
         // Call loadData function, passing in the redux store
         return route.loadData ? route.loadData(store) : null;
+    }).map(promise => {
+        if (promise) {
+            return new Promise((resolve, reject) => {
+                promise.then(resolve).catch(resolve)
+            });
+        }
     });
 
     const render = () => {
@@ -37,7 +43,7 @@ app.get('*', (req, res) => {
         }
 
         res.send(content);
-    }
+    };
 
     // Some promise fail inside promises
     // catch is rendering the promise to soon, it should wait for the unresolved ones

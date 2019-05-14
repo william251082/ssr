@@ -20,5 +20,5 @@ export default (ChildComponent) => {
         return {auth};
     }
 
-    connect()(RequireAuth)
+    return connect(mapStateToProps)(RequireAuth);
 };

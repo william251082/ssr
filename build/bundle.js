@@ -322,8 +322,7 @@ app.get('*', function (req, res) {
         return route.loadData ? route.loadData(store) : null;
     });
 
-    // Some promise fail inside promises
-    Promise.all(promises).then(function () {
+    var render = function render() {
         var context = {};
         var content = (0, _renderer2.default)(req, store, context);
 
@@ -332,10 +331,11 @@ app.get('*', function (req, res) {
         }
 
         res.send(content);
-        // first solution - not ideal, don't giveup a page on a 401
-    }).catch(function () {
-        res.send('Something went wrong');
-    });
+    };
+
+    // Some promise fail inside promises
+    // catch is rendering the promise to soon, it should wait for the unresolved ones
+    Promise.all(promises).then(render).catch(render);
 });
 
 app.listen(3000, function () {

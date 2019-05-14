@@ -38,6 +38,9 @@ app.get('*', (req, res) => {
         }
 
         res.send(content);
+        // first solution - not ideal, don't giveup a page on a 401
+    }).catch(() => {
+        res.send('Something went wrong')
     });
 });
 

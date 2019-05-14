@@ -314,6 +314,7 @@ app.get('*', function (req, res) {
     var store = (0, _createStore2.default)(req);
 
     // What are we doing in the loadData?
+    // Array of promises
     var promises = (0, _reactRouterConfig.matchRoutes)(_Routes2.default, req.path).map(function (_ref) {
         var route = _ref.route;
 
@@ -321,6 +322,7 @@ app.get('*', function (req, res) {
         return route.loadData ? route.loadData(store) : null;
     });
 
+    // Some promise fail inside promises
     Promise.all(promises).then(function () {
         var context = {};
         var content = (0, _renderer2.default)(req, store, context);

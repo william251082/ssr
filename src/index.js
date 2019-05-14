@@ -22,11 +22,13 @@ app.get('*', (req, res) => {
     const store = createStore(req);
 
     // What are we doing in the loadData?
+    // Array of promises
     const promises = matchRoutes(Routes, req.path).map(({route}) => {
         // Call loadData function, passing in the redux store
         return route.loadData ? route.loadData(store) : null;
     });
 
+    // Some promise fail inside promises
     Promise.all(promises).then(() => {
         const context = {};
         const content = renderer(req, store, context);
